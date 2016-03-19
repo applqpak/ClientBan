@@ -28,7 +28,7 @@
 
       @mkdir($this->dataPath());
 
-      $this->cfg = new Config($this->dataPath() . "banned-users.txt", Config::ENUM, array("banned_uuids" => array()));
+      $this->cfg = new Config($this->dataPath() . "banned-users.yml", Config::YAML, array("banned_uuids" => array()));
 
     }
 
