@@ -207,7 +207,7 @@
       if(in_array($player_uuid, $this->bans))
       {
 
-        $player->close("", "You are still Client Banned.");
+        $player->close("", "You are still Banned.");
 
       }
 
