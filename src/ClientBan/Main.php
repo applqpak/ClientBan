@@ -72,7 +72,7 @@
 
             $player_uuid = $player->getClientId();
 
-            if(in_array($player_uuid, $this->bans))
+            if(in_array($player_name, $this->bans))
             {
 
               $sender->sendMessage(TF::RED . "Player " . $player_name . " is already banned.");
