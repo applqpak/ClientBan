@@ -14,6 +14,8 @@
   class Main extends PluginBase implements Listener
   {
 
+    private $bans = array();
+
     public function dataPath()
     {
 
@@ -34,8 +36,6 @@
 
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args)
     {
-
-      $this->bans = array();
 
       if(strtolower($cmd->getName()) === "clientban")
       {
@@ -133,7 +133,7 @@
 
           $banned_uuids = $this->cfg->get("banned_uuids");
 
-          if(!(in_array($uuid, $banned_uuids)))
+          if(!(in_array($uuid, $$this->bans)))
           {
 
             $sender->sendMessage(TF::RED . $uuid . " is not banned.");
