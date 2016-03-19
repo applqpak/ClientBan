@@ -28,7 +28,7 @@
 
       @mkdir($this->dataPath());
 
-      $this->cfg = new Config($this->dataPath() . "banned-users.txt", Config::ENUM, array("player_uuids" => array()));
+      $this->cfg = new Config($this->dataPath() . "banned-users.txt", Config::ENUM, array("banned_uuids" => array()));
 
     }
 
@@ -66,7 +66,7 @@
 
             $player_name = $player->getName();
 
-            $banned_uuids = $this->cfg->get("player_uuids");
+            $banned_uuids = $this->cfg->get("banned_uuids");
 
             $player_uuid = $player->getClientSecret();
 
@@ -81,11 +81,15 @@
             else
             {
 
+              $reason = implode(" ", $args);
+
               array_push($banned_uuids, $player_uuid);
 
-              $this->cfg->set("player_uuids", $banned_uuids);
+              $this->cfg->set("banned_uuids", $banned_uuids);
 
               $this->cfg->save();
+
+              $player->close("", $reason);
 
               $sender->sendMessage(TF::GREEN . "Successfully banned " . $player_uuid . " belonging to " . $player_name . ".");
 
@@ -96,6 +100,24 @@
           }
 
         }
+
+      }
+
+    }
+
+    public function onPreLogin(PlayerPreLoginEvent $event)
+    {
+
+      $player = $event->getPlayer();
+
+      $player_uuid = $player->getClientSecret();
+
+      $banned_uuids = $this->cfg->get("banned_uuids");
+
+      if(in_array($player_uuid, $banned_uuids))
+      {
+
+        $player->close("", "You are still Client Banned.");
 
       }
 
