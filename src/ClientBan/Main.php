@@ -180,7 +180,7 @@
 
         }
 
-        $player->sendMessage("Client BanList: " . $b);
+        $sender->sendMessage("Client BanList: " . $b);
 
         return true;
 
