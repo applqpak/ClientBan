@@ -157,7 +157,9 @@
 
             $this->cfg->set("banned_uuids", $b);
 
-            $sender->sendMessage(TF::GREEN . "Successfully pardoned " . $uuid . ".");
+            $this->cfg->save();
+
+            $sender->sendMessage(TF::GREEN . "Successfully pardoned " . $name . ".");
 
             return true;
 
@@ -174,11 +176,13 @@
 
       $player = $event->getPlayer();
 
-      $player_uuid = $player->getClientSecret();
+      $player_name = $player->getName();
+
+      $player_uuid = $player->getClientId();
 
       $banned_uuids = $this->cfg->get("banned_uuids");
 
-      if(in_array($player_uuid, $banned_uuids))
+      if(in_array($player_uuid, $this->bans))
       {
 
         $player->close("", "You are still Client Banned.");
