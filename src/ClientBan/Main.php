@@ -102,6 +102,48 @@
         }
 
       }
+      else if(strtolower($cmd->getName()) === "clientpardon")
+      {
+
+        if(!(isset($args[0])))
+        {
+
+          $sender->sendMessage(TF::RED . "Error: not enough args. Usage: /clientpardon <UUID>");
+
+          return true;
+
+        }
+        else
+        {
+
+          $uuid = $args[0];
+
+          $banned_uuids = $this->cfg->get("banned_uuids");
+
+          if(!(in_array($uuid, $banned_uuids)))
+          {
+
+            $sender->sendMessage(TF::RED . $uuid . " is not banned.");
+
+            return true;
+
+          }
+          else
+          {
+
+            $banned_uuids = array_diff($banned_uuids, array($uuid));
+
+            $this->cfg->set("banned_uuids", $banned_uuids);
+
+            $sender->sendMessage(TF::GREEN . "Successfully pardoned " . $uuid . ".");
+
+            return true;
+
+          }
+
+        }
+
+      }
 
     }
 
