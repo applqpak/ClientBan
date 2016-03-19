@@ -121,7 +121,7 @@
         if(!(isset($args[0])))
         {
 
-          $sender->sendMessage(TF::RED . "Error: not enough args. Usage: /clientpardon <UUID>");
+          $sender->sendMessage(TF::RED . "Error: not enough args. Usage: /clientpardon <player>");
 
           return true;
 
@@ -129,14 +129,14 @@
         else
         {
 
-          $uuid = $args[0];
+          $name = $args[0];
 
           $banned_uuids = $this->cfg->get("banned_uuids");
 
-          if(!(in_array($uuid, $$this->bans)))
+          if(!(in_array($name, $this->bans)))
           {
 
-            $sender->sendMessage(TF::RED . $uuid . " is not banned.");
+            $sender->sendMessage(TF::RED . $name . " is not banned.");
 
             return true;
 
@@ -144,9 +144,18 @@
           else
           {
 
-            $banned_uuids = array_diff($banned_uuids, array($uuid));
+            unset($this->bans[$name]);
 
-            $this->cfg->set("banned_uuids", $banned_uuids);
+            $b = "";
+
+            foreach($this->bans as $key => $value)
+            {
+
+              $b .= $key . " => " . $value;
+
+            }
+
+            $this->cfg->set("banned_uuids", $b);
 
             $sender->sendMessage(TF::GREEN . "Successfully pardoned " . $uuid . ".");
 
