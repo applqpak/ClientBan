@@ -168,6 +168,23 @@
         }
 
       }
+      else if(strtolower($cmd->getName()) === "clientbanlist")
+      {
+
+        $b = "";
+
+        foreach($this->bans as $key => $value)
+        {
+
+          $b .= $key . " => " . $value . ", ";
+
+        }
+
+        $player->sendMessage("Client BanList: " . $b);
+
+        return true;
+
+      }
 
     }
 
