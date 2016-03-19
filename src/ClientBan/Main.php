@@ -35,7 +35,7 @@
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args)
     {
 
-      $this->banned_players = array();
+      $this->bans = array();
 
       if(strtolower($cmd->getName()) === "clientban")
       {
@@ -72,7 +72,7 @@
 
             $player_uuid = $player->getClientId();
 
-            if(in_array($player_uuid, $banned_uuids))
+            if(in_array($player_uuid, $this->bans))
             {
 
               $sender->sendMessage(TF::RED . "Player " . $player_name . " is already banned.");
