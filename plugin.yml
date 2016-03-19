@@ -18,7 +18,7 @@ commands:
     alias: [cpardon, cp]
   clientbanlist:
     usage: "/clientbanlist"
-    description: Check The Ban Lsot Of Player UUIDS.
+    description: Check The Ban List Of Player UUIDS.
     permission: clientbanlist.command
     alias: [cbanlist, cbl]
 permissions:
