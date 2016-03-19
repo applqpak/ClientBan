@@ -10,6 +10,7 @@
   use pocketmine\utils\Config;
   use pocketmine\utils\TextFormat as TF;
   use pocketmine\Player;
+  use pocketmine\Server;
 
   class Main extends PluginBase implements Listener
   {
@@ -131,12 +132,16 @@
 
           $name = $args[0];
 
+          $player = $this->getServer()->getOfflinePlayer($name);
+
+          $player_name = $player->getName();
+
           $banned_uuids = $this->cfg->get("banned_uuids");
 
-          if(!(in_array($name, $this->bans)))
+          if(!(in_array($player_name, $this->bans)))
           {
 
-            $sender->sendMessage(TF::RED . $name . " is not banned.");
+            $sender->sendMessage(TF::RED . $player_name . " is not banned.");
 
             return true;
 
@@ -144,7 +149,7 @@
           else
           {
 
-            unset($this->bans[$name]);
+            unset($this->bans[$player_name]);
 
             $b = "";
 
@@ -159,7 +164,7 @@
 
             $this->cfg->save();
 
-            $sender->sendMessage(TF::GREEN . "Successfully pardoned " . $name . ".");
+            $sender->sendMessage(TF::GREEN . "Successfully pardoned " . $player_name . ".");
 
             return true;
 
