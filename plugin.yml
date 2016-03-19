@@ -10,17 +10,17 @@ commands:
     usage: "/clientban <player> < reason >"
     description: Ban A Players UUID.
     permission: clientban.command
-    alias: [cban, cb]
+    aliases: [cban, cb]
   clientpardon:
     usage: "/clientpardon <player>"
     description: Unban A Players UUID.
     permission: clientpardon.command
-    alias: [cpardon, cp]
+    aliases: [cpardon, cp]
   clientbanlist:
     usage: "/clientbanlist"
     description: Check The Ban List Of Player UUIDS.
     permission: clientbanlist.command
-    alias: [cbanlist, cbl]
+    aliases: [cbanlist, cbl]
 permissions:
   clientban.command:
     default: op
