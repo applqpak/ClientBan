@@ -28,12 +28,14 @@
 
       @mkdir($this->dataPath());
 
-      $this->cfg = new Config($this->dataPath() . "banned-users.yml", Config::YAML, array("banned_uuids" => array()));
+      $this->cfg = new Config($this->dataPath() . "banned-users.txt", Config::ENUM, array("banned_uuids" => array()));
 
     }
 
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args)
     {
+
+      $this->banned_players = array();
 
       if(strtolower($cmd->getName()) === "clientban")
       {
@@ -68,7 +70,7 @@
 
             $banned_uuids = $this->cfg->get("banned_uuids");
 
-            $player_uuid = $player->getClientSecret();
+            $player_uuid = $player->getClientId();
 
             if(in_array($player_uuid, $banned_uuids))
             {
@@ -85,9 +87,18 @@
 
               $reason = implode(" ", $args);
 
-              array_push($banned_uuids, $player_uuid);
+              $this->bans[$player_name] = $player_uuid;
 
-              $this->cfg->set("banned_uuids", $banned_uuids);
+              $b = "";
+
+              foreach($this->bans as $key => $value)
+              {
+
+                $b .= $key . " => " . $value;
+
+              }
+
+              $this->cfg->set("banned_uuids", $b);
 
               $this->cfg->save();
 
