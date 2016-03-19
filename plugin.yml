@@ -10,6 +10,12 @@ commands:
     usage: "/clientban <player> < reason >"
     description: Ban A Players UUID.
     permission: clientban.command
+  clientpardon:
+    usage: "/clientpardon <UUID>"
+    description: Unban A Players UUID.
+    permission: clientpardon.command
 permissions:
   clientban.command:
+    default: op
+  clientpardon.commamd:
     default: op
