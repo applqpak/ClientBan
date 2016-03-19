@@ -81,6 +81,8 @@
             else
             {
 
+              unset($args[0]);
+
               $reason = implode(" ", $args);
 
               array_push($banned_uuids, $player_uuid);
