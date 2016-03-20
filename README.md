@@ -1,2 +1,2 @@
-# UUIDBan
-Ban A Players UUID.
+# ClientBan
+Ban A Players ClientID.
